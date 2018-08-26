@@ -82,7 +82,7 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       <wsdl:port binding="impl:ProductSoapBinding" name="Product">
 
-         <wsdlsoap:address location="http://tempuri.org/webservice-server/services/Product"/>
+         <wsdlsoap:address location="http://tempuri.org/web-service-producer/services/Product"/>
 
       </wsdl:port>
 
