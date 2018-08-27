@@ -1,5 +1,6 @@
 package com.WSDLService;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import javax.jws.WebMethod;
@@ -9,10 +10,11 @@ import javax.jws.soap.SOAPBinding;
 // targetname space default one is reversing the package and shows as targetNameSpace URL.
 import javax.jws.soap.SOAPBinding.Style;
 import javax.jws.soap.SOAPBinding.Use;
+import javax.naming.NoPermissionException;
 
 import com.domain.Book;
 import com.serviceImpl.ProductServiceImpl;
-@WebService(endpointInterface = "com.WSDLService.ProductInterface")
+@WebService(endpointInterface = "com.WSDLService.ProductInterface", name="GlobalProduct", portName="GlobalProductPort", targetNamespace = "http://suresh.com/global")
 public class Product implements ProductInterface 
 {
 	
@@ -31,7 +33,18 @@ public class Product implements ProductInterface
  * @see com.WSDLService.ProductInterface#getBooks(java.lang.String, java.lang.String)
  */
 @Override
-public List<Book> getBooks(String book1, String book2) {
-	   return productService.getBooks();
-   }
+public List<Book> getBooks(String book1, String book2) throws Exception{
+	List<Book> result = null;
+	   try{
+		   result = productService.getBooks();
+		   if(result == null){
+			   throw new FileNotFoundException();
+		   }
+		  }catch(Exception ex){
+			  ex.printStackTrace();
+		  }
+	   return result;
+		   
+	   }
+   
 }
